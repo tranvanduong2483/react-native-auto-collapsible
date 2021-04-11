@@ -3,9 +3,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import {Image} from 'react-native';
-import Feature1 from './screens/Feature1';
-import Feature1_2Screen from './screens/Feature1_2Screen';
+import Feature1_2Screen from './screens/Feature1_2';
 import Feature1_2_ChildScrollView from './screens/Feature1_2_ChildScrollView';
+import Feature2 from './screens/Feature2';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -62,8 +62,8 @@ const HomeStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator>
     <HomeStack.Screen
-      name="Feature 1 - Ẩn/Hiện bottom tab khi scroll"
-      component={Feature1}
+      name="Feature 2 - Ẩn/Hiện bottom tab khi scroll"
+      component={Feature2}
     />
   </HomeStack.Navigator>
 );

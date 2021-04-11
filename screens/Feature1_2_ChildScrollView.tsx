@@ -23,7 +23,10 @@ const TEXT_INPUT_MARGIN_TOP = 30;
 
 interface Props {}
 interface State {}
-export default class Feature1_2Screen extends Component<Props, State> {
+export default class Feature1_2_ChildScrollViewScreen extends Component<
+  Props,
+  State
+> {
   //searchview config
   inputRef: React.RefObject<TextInput> = React.createRef();
   searchViewOpacity: Animated.Value = new Animated.Value(0);
@@ -171,7 +174,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
 
   onPress = () => {
     //[option] ẩn searchview
-    this.hideSearchView();
+    this.hideSearchView(1000);
 
     //[option]
     this.inputRef.current?.blur();
@@ -292,7 +295,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'yellow'}]}>
               <Text style={styles.contentText}>
-                Khi scroll vị trí 0, kéo xuống để mở search view (feature 2)
+                Khi scroll vị trí 0, kéo xuống để mở search view (feature 1)
               </Text>
             </View>
             <View
@@ -311,7 +314,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'orange'}]}>
               <Text style={styles.contentText}>
-                {'Kéo lên để đóng bottom tab \n(feature 1)'}
+                {'Kéo lên để đóng bottom tab \n(feature 2)'}
               </Text>
             </View>
             <View
@@ -339,7 +342,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
           <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'pink'}]}>
             <Text style={styles.contentText}>
-              {'Kéo xuống để mở bottom tab \n(feature 1)'}
+              {'Kéo xuống để mở bottom tab \n(feature 2)'}
             </Text>
           </View>
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />

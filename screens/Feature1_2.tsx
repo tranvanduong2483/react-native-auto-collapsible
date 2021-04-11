@@ -165,7 +165,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
 
   onPress = () => {
     //[option] ẩn searchview
-    this.hideSearchView();
+    this.hideSearchView(1000);
 
     //[option]
     this.inputRef.current?.blur();
@@ -235,7 +235,7 @@ export default class Feature1_2Screen extends Component<Props, State> {
           </TouchableHighlight>
 
           <Text style={styles.textInSearchView}>
-            Kéo lên để đóng search view
+            Kéo lên để đóng search view (Feature 1)
           </Text>
         </Animated.View>
       </Animated.View>
@@ -283,12 +283,12 @@ export default class Feature1_2Screen extends Component<Props, State> {
           }}>
           <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]}>
             <Text style={styles.contentText}>
-              Khi scroll vị trí 0, kéo xuống để mở search view (feature 2)
+              Khi scroll vị trí 0, kéo xuống để mở search view (feature 1)
             </Text>
           </View>
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]}>
             <Text style={styles.contentText}>
-              Kéo lên/xuống để ẩn/hiện bottom tab (feature 1)
+              Kéo lên/xuống để ẩn/hiện bottom tab (feature 2)
             </Text>
           </View>
           <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />

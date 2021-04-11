@@ -10,7 +10,7 @@ interface Props {
   navigation: any;
 }
 interface State {}
-export default class HomeScreen extends Component<Props, State> {
+export default class Feature2 extends Component<Props, State> {
   scroll = new Animated.Value(0);
   diffY: Animated.AnimatedDiffClamp;
   isShowingBottomTab: boolean = true;

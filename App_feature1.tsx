@@ -132,7 +132,7 @@ export class App extends Component<Props, State> {
 
   onPress = () => {
     //[option] ẩn searchview
-    this.hideSearchView();
+    this.hideSearchView(1000);
 
     //[option]
     this.inputRef.current?.blur();
@@ -200,6 +200,9 @@ export class App extends Component<Props, State> {
           <TouchableHighlight style={styles.button} onPress={this.onPress}>
             <Text>Ẩn search view</Text>
           </TouchableHighlight>
+          <Text style={styles.textInSearchView}>
+            Kéo lên để đóng search view (Feature 1)
+          </Text>
         </Animated.View>
       </Animated.View>
     </Animated.View>
@@ -235,7 +238,11 @@ export class App extends Component<Props, State> {
               {scaleX: contentScaleX},
             ],
           }}>
-          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]}>
+            <Text style={styles.contentText}>
+              Kéo xuống để mở search view (feature 1)
+            </Text>
+          </View>
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'white'}]} />

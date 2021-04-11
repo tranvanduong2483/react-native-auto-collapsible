@@ -1,0 +1,83 @@
+import {Platform, StyleSheet} from 'react-native';
+
+export const appStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'yellow',
+  },
+  scrollViewContainer: {
+    width: '100%',
+    backgroundColor: 'blue',
+  },
+  pan_container: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'blue',
+    opacity: 0,
+  },
+  searchViewContainer: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    backgroundColor: 'red',
+    zIndex: 1,
+    paddingTop: Platform.OS === 'ios' ? 25 : 0,
+  },
+  contentContainer: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'yellow',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    backgroundColor: 'white',
+    height: 50,
+    paddingHorizontal: 15,
+    fontSize: 18,
+    width: '90%',
+    marginBottom: 25,
+    alignSelf: 'center',
+    borderRadius: 10,
+  },
+  textInSearchView: {
+    color: 'white',
+    fontSize: 16,
+  },
+  blueView: {
+    backgroundColor: 'blue',
+    width: '90%',
+    height: 200,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  button: {
+    height: 50,
+    width: 200,
+    alignSelf: 'center',
+    backgroundColor: 'orange',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  viewItem: {
+    height: 200,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    marginTop: 20,
+  },
+  flatlistItem: {
+    height: 50,
+    width: 300,
+    alignSelf: 'center',
+    backgroundColor: 'orange',
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

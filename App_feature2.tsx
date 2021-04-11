@@ -19,7 +19,7 @@ function MyTabs() {
         name="Home"
         component={HomeStackScreen}
         options={{
-          tabBarLabel: 'Feature 1',
+          tabBarLabel: 'Feature 2',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('./assets/ic_home.png')}

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Animated, View} from 'react-native';
 import * as Styles from '../theme/Style';
@@ -11,19 +12,19 @@ interface Props {
 interface State {}
 export default class App extends Component<Props, State> {
   scroll = new Animated.Value(0);
-  headerY: Animated.AnimatedDiffClamp;
-  isShowSearchView: boolean = true;
+  diffY: Animated.AnimatedDiffClamp;
+  isShowingBottomTab: boolean = true;
 
   constructor(props: Props) {
     super(props);
-    this.headerY = Animated.diffClamp(this.scroll, 0, MARGIN);
+    this.diffY = Animated.diffClamp(this.scroll, 0, 2 * MARGIN);
   }
 
   setTabBarVisible = (isShow: boolean) => {
-    if (this.isShowSearchView === isShow) {
+    if (this.isShowingBottomTab === isShow) {
       return;
     }
-    this.isShowSearchView = isShow;
+    this.isShowingBottomTab = isShow;
     this.props.navigation?.dangerouslyGetParent()?.setOptions({
       tabBarVisible: isShow,
     });
@@ -42,7 +43,7 @@ export default class App extends Component<Props, State> {
             {
               useNativeDriver: false,
               listener: () => {
-                this.setTabBarVisible(this.headerY.__getValue() < 0.5 * MARGIN);
+                this.setTabBarVisible(this.diffY.__getValue() < MARGIN);
               },
             },
           )}

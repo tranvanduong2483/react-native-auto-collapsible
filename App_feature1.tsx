@@ -1,9 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   Alert,
   Animated,
   Dimensions,
   Easing,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   PanResponder,
   PanResponderInstance,
   Text,
@@ -26,6 +29,7 @@ export class App extends Component<Props, State> {
   blueViewTranslateY: Animated.Value = new Animated.Value(0);
   isShowSearchView: boolean = false;
   panResponder: PanResponderInstance;
+  scrollOnTop: boolean = true;
 
   constructor(props: Props) {
     super(props);
@@ -34,17 +38,14 @@ export class App extends Component<Props, State> {
   }
   createPanResponder = (): PanResponderInstance => {
     return PanResponder.create({
-      onStartShouldSetPanResponder: () => false,
-      onStartShouldSetPanResponderCapture: () => false,
-      onMoveShouldSetPanResponderCapture: () => false,
-      onMoveShouldSetPanResponder: (evt, gestureState) => {
-        if (!this.isShowSearchView && gestureState.dy < 0) {
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        if (!this.isShowSearchView && gestureState.dy <= 0) {
           return false;
         }
 
-        return true;
+        return this.scrollOnTop;
       },
-      onPanResponderMove: (e, gestureState) => {
+      onPanResponderMove: (_, gestureState) => {
         const {dy} = gestureState;
         let opacity;
 
@@ -78,8 +79,7 @@ export class App extends Component<Props, State> {
           return;
         }
       },
-
-      onPanResponderRelease: (e, gestureState) => {
+      onPanResponderRelease: (_, gestureState) => {
         const {dy} = gestureState;
         if (this.isShowSearchView) {
           Animated.timing(this.blueViewTranslateY, {
@@ -101,22 +101,9 @@ export class App extends Component<Props, State> {
           return;
         }
       },
-
-      onPanResponderTerminate: (evt, gestureState) => {
-        //Nếu phản hồi bị giành bởi view khác thì khôi phục
-        const {dy} = gestureState;
-        if (this.isShowSearchView) {
-          this.blueViewTranslateY.setValue(0);
-        }
-
-        if (dy > MARGIN && dy > 0) {
-          this.showSearchView(0);
-        }
-
-        if (dy < 0 || (dy > 0 && dy <= MARGIN && !this.isShowSearchView)) {
-          this.hideSearchView(0);
-          return;
-        }
+      onPanResponderTerminate: () => {
+        this.showSearchView();
+        this.inputRef.current?.focus();
       },
     });
   };
@@ -205,30 +192,26 @@ export class App extends Component<Props, State> {
   );
 
   _renderContent = () => (
-    <Animated.View style={styles.contentContainer}>
-      <Text>Đây là nội dung của view vàng, kéo xuống để tìm kiếm</Text>
-
-      {/* <FlatList
-        data={new Array(100)}
-        keyExtractor={(item, index) => `${index}`}
-        renderItem={element => (
-          <TouchableHighlight
-            style={styles.flatlistItem}
-            onPress={() => Alert.alert('Thông báo', 'onPress')}>
-            <Text>Item {element.index}</Text>
-          </TouchableHighlight>
-        )}
-        showsHorizontalScrollIndicator={true}
-        showsVerticalScrollIndicator={true}
-      /> */}
-
-      <TouchableHighlight
-        style={styles.flatlistItem}
-        onPress={() => Alert.alert('Thông báo', 'onPress')}>
-        <Text>Item</Text>
-      </TouchableHighlight>
-    </Animated.View>
+    <Animated.ScrollView
+      style={styles.scrollViewContainer}
+      scrollEventThrottle={1}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{paddingVertical: 50}}
+      onScroll={this.handleScroll}
+      bounces={true}>
+      <View style={[styles.viewItem, {backgroundColor: 'green'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
+    </Animated.ScrollView>
   );
+
+  handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    this.scrollOnTop = event.nativeEvent.contentOffset.y <= 0;
+  };
 
   render() {
     return (

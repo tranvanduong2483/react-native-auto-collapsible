@@ -16,7 +16,9 @@ import * as Styles from '../theme/Style';
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const styles = Styles.appStyles;
 
-const MARGIN = 100; //Khoảng cách để kích hoạt hiển thị search view
+const PULL_SHOW_SEARCH_VIEW_MARGIN = 100; //Khoảng cách để kích hoạt hiển thị search view
+const PULL_SHOW_BOTTOM_TAB_MARGIN = 40; //Khoảng cách để kích hoạt hiển thị bottom tab
+
 const TEXT_INPUT_MARGIN_TOP = 30;
 
 interface Props {}
@@ -42,7 +44,11 @@ export default class NotificationScreen extends Component<Props, State> {
     this.panResponder = this.createPanResponder();
 
     //bottom tab
-    this.diffY = Animated.diffClamp(this.scroll, 0, 2 * MARGIN);
+    this.diffY = Animated.diffClamp(
+      this.scroll,
+      0,
+      2 * PULL_SHOW_BOTTOM_TAB_MARGIN,
+    );
   }
   createPanResponder = (): PanResponderInstance => {
     return PanResponder.create({
@@ -64,7 +70,7 @@ export default class NotificationScreen extends Component<Props, State> {
 
         //Vuốt xuống dy
         if (dy > 0) {
-          opacity = dy / MARGIN;
+          opacity = dy / PULL_SHOW_SEARCH_VIEW_MARGIN;
           //Nếu searchview ở trạng thái ẩn thì áp dụng opacity tăng dần 0->(dy/MARGIN)
           if (!this.isShowSearchView) {
             this.searchViewOpacity.setValue(opacity);
@@ -77,7 +83,10 @@ export default class NotificationScreen extends Component<Props, State> {
 
         //Vuốt lên |dy|
         if (dy < 0) {
-          opacity = -dy / MARGIN > 1 ? 0 : 1 + dy / MARGIN;
+          opacity =
+            -dy / PULL_SHOW_SEARCH_VIEW_MARGIN > 1
+              ? 0
+              : 1 + dy / PULL_SHOW_SEARCH_VIEW_MARGIN;
           //Nếu searchview ở trạng thái hiện thì áp dụng opacity tiến về 0
           if (this.isShowSearchView) {
             // Ẩn bàn phím nếu có vuốt lên trong trường hợp đang mở searchview (this.isShowSearchView === true)
@@ -98,13 +107,18 @@ export default class NotificationScreen extends Component<Props, State> {
           }).start();
         }
 
-        if (dy > MARGIN && dy > 0) {
+        if (dy > PULL_SHOW_SEARCH_VIEW_MARGIN && dy > 0) {
           this.showSearchView();
           this.inputRef.current?.focus();
           return;
         }
 
-        if (dy < 0 || (dy > 0 && dy <= MARGIN && !this.isShowSearchView)) {
+        if (
+          dy < 0 ||
+          (dy > 0 &&
+            dy <= PULL_SHOW_SEARCH_VIEW_MARGIN &&
+            !this.isShowSearchView)
+        ) {
           this.hideSearchView();
           return;
         }
@@ -224,9 +238,6 @@ export default class NotificationScreen extends Component<Props, State> {
           listener: event => {
             //searchview
             this.handleScroll(event);
-
-            //bottom tab
-            this.setTabBarVisible(this.diffY.__getValue() < MARGIN);
           },
         },
       )}
@@ -243,6 +254,11 @@ export default class NotificationScreen extends Component<Props, State> {
 
   handleScroll = (event: any) => {
     this.scrollOnTop = event.nativeEvent.contentOffset.y <= 0;
+
+    //bottom tab
+    this.setTabBarVisible(
+      this.diffY.__getValue() < PULL_SHOW_BOTTOM_TAB_MARGIN || this.scrollOnTop, //scroll đang ở top thì buộc phải hiển thị bottom tab
+    );
   };
 
   render() {

@@ -43,7 +43,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={AccountScreen}
+        component={AccountStackScreen}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
@@ -76,6 +76,19 @@ const NotificationStackScreen = () => (
       }}
     />
   </NotificationStack.Navigator>
+);
+
+const AccountStack = createStackNavigator();
+const AccountStackScreen = () => (
+  <AccountStack.Navigator>
+    <AccountStack.Screen
+      name="AccountStackScreen"
+      component={AccountScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </AccountStack.Navigator>
 );
 
 export const App = () => {

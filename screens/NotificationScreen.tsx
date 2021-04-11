@@ -17,7 +17,7 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 const styles = Styles.appStyles;
 
 const PULL_SHOW_SEARCH_VIEW_MARGIN = 100; //Khoảng cách để kích hoạt hiển thị search view
-const PULL_SHOW_BOTTOM_TAB_MARGIN = 40; //Khoảng cách để kích hoạt hiển thị bottom tab
+const PULL_SHOW_BOTTOM_TAB_MARGIN = 10; //Khoảng cách để kích hoạt hiển thị bottom tab
 
 const TEXT_INPUT_MARGIN_TOP = 30;
 
@@ -229,7 +229,7 @@ export default class NotificationScreen extends Component<Props, State> {
       style={styles.scrollViewContainer}
       scrollEventThrottle={1}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingVertical: 50}}
+      contentContainerStyle={{paddingVertical: 50, paddingBottom: 56}}
       // onScroll={this.handleScroll}
       onScroll={Animated.event(
         [{nativeEvent: {contentOffset: {y: this.scroll}}}],

@@ -71,6 +71,13 @@ export const appStyles = StyleSheet.create({
     backgroundColor: 'red',
     marginTop: 20,
   },
+  viewItemInScroll: {
+    height: 200,
+    width: 200,
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    marginTop: 20,
+  },
   flatlistItem: {
     height: 50,
     width: 300,

@@ -199,7 +199,7 @@ export class App extends Component<Props, State> {
       contentContainerStyle={{paddingVertical: 50}}
       onScroll={this.handleScroll}
       bounces={true}>
-      <View style={[styles.viewItem, {backgroundColor: 'green'}]} />
+      <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
       <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
       <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
       <View style={[styles.viewItem, {backgroundColor: 'white'}]} />

@@ -9,11 +9,11 @@ export const appStyles = StyleSheet.create({
   },
   scrollViewContainer: {
     width: '100%',
-    backgroundColor: 'blue',
+    backgroundColor: 'dodgerblue',
   },
   pan_container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'blue',
+    backgroundColor: 'dodgerblue',
     opacity: 0,
   },
   searchViewContainer: {
@@ -46,13 +46,14 @@ export const appStyles = StyleSheet.create({
     fontSize: 16,
   },
   blueView: {
-    backgroundColor: 'blue',
+    backgroundColor: 'dodgerblue',
     width: '90%',
     height: 200,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    borderRadius: 5,
   },
   button: {
     height: 50,
@@ -70,13 +71,13 @@ export const appStyles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'red',
     marginTop: 20,
+    borderRadius: 10,
   },
   viewItemInScroll: {
     height: 200,
     width: 200,
     alignSelf: 'center',
     backgroundColor: 'red',
-    marginTop: 20,
   },
   flatlistItem: {
     height: 50,

@@ -224,33 +224,49 @@ export default class NotificationScreen extends Component<Props, State> {
     </Animated.View>
   );
 
-  _renderContent = () => (
-    <Animated.ScrollView
-      style={styles.scrollViewContainer}
-      scrollEventThrottle={1}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingVertical: 50, paddingBottom: 56}}
-      // onScroll={this.handleScroll}
-      onScroll={Animated.event(
-        [{nativeEvent: {contentOffset: {y: this.scroll}}}],
-        {
-          useNativeDriver: false,
-          listener: event => {
-            //searchview
-            this.handleScroll(event);
+  _renderContent = () => {
+    const contentTranslateY = this.searchViewOpacity.interpolate({
+      //content dịch chuyển Y theo khi kích hoạt searchview (giống ios)
+      inputRange: [0, 1],
+      outputRange: [0, 30],
+    });
+    return (
+      <Animated.ScrollView
+        style={styles.scrollViewContainer}
+        scrollEventThrottle={1}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingTop: 70, paddingBottom: 100}}
+        // onScroll={this.handleScroll}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: this.scroll}}}],
+          {
+            useNativeDriver: false,
+            listener: event => {
+              //searchview
+              this.handleScroll(event);
+            },
           },
-        },
-      )}
-      bounces={true}>
-      <View style={[styles.viewItem, {backgroundColor: 'green'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
-    </Animated.ScrollView>
-  );
+        )}
+        bounces={false}>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: contentTranslateY,
+              },
+            ],
+          }}>
+          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'red'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
+        </Animated.View>
+      </Animated.ScrollView>
+    );
+  };
 
   handleScroll = (event: any) => {
     this.scrollOnTop = event.nativeEvent.contentOffset.y <= 0;

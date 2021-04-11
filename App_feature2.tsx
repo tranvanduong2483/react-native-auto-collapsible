@@ -19,7 +19,7 @@ function MyTabs() {
         name="Home"
         component={HomeStackScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Feature 1',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('./assets/ic_home.png')}
@@ -32,7 +32,7 @@ function MyTabs() {
         name="Notifications"
         component={NotificationStackScreen}
         options={{
-          tabBarLabel: 'Notifications',
+          tabBarLabel: 'Feature 1 & 2',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('./assets/ic_notification.png')}
@@ -45,7 +45,7 @@ function MyTabs() {
         name="Profile"
         component={AccountStackScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Child ScrollView (1,2)',
           tabBarIcon: ({color, size}) => (
             <Image
               source={require('./assets/ic_user.png')}
@@ -61,7 +61,7 @@ function MyTabs() {
 const HomeStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator>
-    <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+    <HomeStack.Screen name="Feature 1" component={HomeScreen} />
   </HomeStack.Navigator>
 );
 

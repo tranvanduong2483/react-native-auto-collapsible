@@ -49,7 +49,7 @@ export default class HomeScreen extends Component<Props, State> {
           )}
           bounces={false}>
           <View style={[styles.viewItem, {backgroundColor: 'red'}]} />
-          <View style={[styles.viewItem, {backgroundColor: 'green'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'red'}]} />

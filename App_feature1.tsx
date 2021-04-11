@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
-  Alert,
   Animated,
   Dimensions,
   Easing,
@@ -40,6 +39,10 @@ export class App extends Component<Props, State> {
     return PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) => {
         if (!this.isShowSearchView && gestureState.dy <= 0) {
+          return false;
+        }
+
+        if (gestureState.dy === 0 && gestureState.dx === 0) {
           return false;
         }
 
@@ -127,6 +130,19 @@ export class App extends Component<Props, State> {
     }).start();
   };
 
+  onPress = () => {
+    //[option] ẩn searchview
+    this.hideSearchView();
+
+    //[option]
+    this.inputRef.current?.blur();
+
+    //xử lí onPress
+    // {
+    //   ex. navigate đến các navigator.screen khác
+    // }
+  };
+
   _renderSearchView = () => (
     <Animated.View
       style={[
@@ -181,33 +197,55 @@ export class App extends Component<Props, State> {
           <Text style={styles.textInSearchView}>
             View Xanh, TextInput là con của view đỏ
           </Text>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => Alert.alert('Thông báo', 'onPress')}>
-            <Text>Button</Text>
+          <TouchableHighlight style={styles.button} onPress={this.onPress}>
+            <Text>Ẩn search view</Text>
           </TouchableHighlight>
         </Animated.View>
       </Animated.View>
     </Animated.View>
   );
 
-  _renderContent = () => (
-    <Animated.ScrollView
-      style={styles.scrollViewContainer}
-      scrollEventThrottle={1}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{paddingVertical: 50}}
-      onScroll={this.handleScroll}
-      bounces={true}>
-      <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
-      <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
-    </Animated.ScrollView>
-  );
+  _renderContent = () => {
+    const contentTranslateY = this.searchViewOpacity.interpolate({
+      //content dịch chuyển Y theo khi kích hoạt searchview (giống ios)
+      inputRange: [0, 1],
+      outputRange: [0, 70],
+    });
+
+    const contentScaleX = this.searchViewOpacity.interpolate({
+      //content co lai 1->0.95 theo khi kích hoạt searchview (giống ios)
+      inputRange: [0, 1],
+      outputRange: [1, 0.95],
+    });
+
+    return (
+      <Animated.ScrollView
+        style={styles.scrollViewContainer}
+        scrollEventThrottle={1}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingVertical: 50}}
+        onScroll={this.handleScroll}
+        bounces={true}>
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: contentTranslateY,
+              },
+              {scaleX: contentScaleX},
+            ],
+          }}>
+          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
+        </Animated.View>
+      </Animated.ScrollView>
+    );
+  };
 
   handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     this.scrollOnTop = event.nativeEvent.contentOffset.y <= 0;

@@ -3,9 +3,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import {Image} from 'react-native';
-import AccountScreen from './screens/AccountScreen';
-import HomeScreen from './screens/HomeScreen';
-import NotificationScreen from './screens/NotificationScreen';
+import Feature1 from './screens/Feature1';
+import Feature1_2Screen from './screens/Feature1_2Screen';
+import Feature1_2_ChildScrollView from './screens/Feature1_2_ChildScrollView';
 
 const Tab = createBottomTabNavigator();
 function MyTabs() {
@@ -61,7 +61,10 @@ function MyTabs() {
 const HomeStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator>
-    <HomeStack.Screen name="Feature 1" component={HomeScreen} />
+    <HomeStack.Screen
+      name="Feature 1 - Ẩn/Hiện bottom tab khi scroll"
+      component={Feature1}
+    />
   </HomeStack.Navigator>
 );
 
@@ -69,8 +72,8 @@ const NotificationStack = createStackNavigator();
 const NotificationStackScreen = () => (
   <NotificationStack.Navigator>
     <NotificationStack.Screen
-      name="NotificationScreen"
-      component={NotificationScreen}
+      name="Feature1_2Screen"
+      component={Feature1_2Screen}
       options={{
         headerShown: false,
       }}
@@ -83,7 +86,7 @@ const AccountStackScreen = () => (
   <AccountStack.Navigator>
     <AccountStack.Screen
       name="AccountStackScreen"
-      component={AccountScreen}
+      component={Feature1_2_ChildScrollView}
       options={{
         headerShown: false,
       }}

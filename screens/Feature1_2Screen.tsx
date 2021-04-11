@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
-  Alert,
   Animated,
   Dimensions,
   Easing,
@@ -23,7 +22,7 @@ const TEXT_INPUT_MARGIN_TOP = 30;
 
 interface Props {}
 interface State {}
-export default class NotificationScreen extends Component<Props, State> {
+export default class Feature1_2Screen extends Component<Props, State> {
   //searchview config
   inputRef: React.RefObject<TextInput> = React.createRef();
   searchViewOpacity: Animated.Value = new Animated.Value(0);
@@ -54,6 +53,10 @@ export default class NotificationScreen extends Component<Props, State> {
     return PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) => {
         if (!this.isShowSearchView && gestureState.dy <= 0) {
+          return false;
+        }
+
+        if (gestureState.dy === 0 && gestureState.dx === 0) {
           return false;
         }
 
@@ -160,6 +163,19 @@ export default class NotificationScreen extends Component<Props, State> {
     });
   };
 
+  onPress = () => {
+    //[option] ẩn searchview
+    this.hideSearchView();
+
+    //[option]
+    this.inputRef.current?.blur();
+
+    //xử lí onPress
+    // {
+    //   ex. navigate đến các navigator.screen khác
+    // }
+  };
+
   _renderSearchView = () => (
     <Animated.View
       style={[
@@ -214,11 +230,13 @@ export default class NotificationScreen extends Component<Props, State> {
           <Text style={styles.textInSearchView}>
             View Xanh, TextInput là con của view đỏ
           </Text>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => Alert.alert('Thông báo', 'onPress')}>
-            <Text>Button</Text>
+          <TouchableHighlight style={styles.button} onPress={this.onPress}>
+            <Text>Ẩn search view</Text>
           </TouchableHighlight>
+
+          <Text style={styles.textInSearchView}>
+            Kéo lên để đóng search view
+          </Text>
         </Animated.View>
       </Animated.View>
     </Animated.View>
@@ -228,7 +246,13 @@ export default class NotificationScreen extends Component<Props, State> {
     const contentTranslateY = this.searchViewOpacity.interpolate({
       //content dịch chuyển Y theo khi kích hoạt searchview (giống ios)
       inputRange: [0, 1],
-      outputRange: [0, 30],
+      outputRange: [0, 70],
+    });
+
+    const contentScaleX = this.searchViewOpacity.interpolate({
+      //content co lai 1->0.95 theo khi kích hoạt searchview (giống ios)
+      inputRange: [0, 1],
+      outputRange: [1, 0.95],
     });
     return (
       <Animated.ScrollView
@@ -254,10 +278,19 @@ export default class NotificationScreen extends Component<Props, State> {
               {
                 translateY: contentTranslateY,
               },
+              {scaleX: contentScaleX},
             ],
           }}>
-          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]} />
-          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'lawngreen'}]}>
+            <Text style={styles.contentText}>
+              Khi scroll vị trí 0, kéo xuống để mở search view (feature 2)
+            </Text>
+          </View>
+          <View style={[styles.viewItem, {backgroundColor: 'yellow'}]}>
+            <Text style={styles.contentText}>
+              Kéo lên/xuống để ẩn/hiện bottom tab (feature 1)
+            </Text>
+          </View>
           <View style={[styles.viewItem, {backgroundColor: 'orange'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />

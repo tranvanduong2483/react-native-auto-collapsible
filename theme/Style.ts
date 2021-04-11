@@ -31,6 +31,11 @@ export const appStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  contentText: {
+    fontSize: 18,
+    marginHorizontal: 20,
+    textAlign: 'center',
+  },
   input: {
     backgroundColor: 'white',
     height: 50,
@@ -60,12 +65,23 @@ export const appStyles = StyleSheet.create({
     width: 200,
     alignSelf: 'center',
     backgroundColor: 'orange',
-    marginTop: 20,
+    marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
   viewItem: {
+    height: 200,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    marginTop: 20,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  scrollViewItem: {
     height: 200,
     width: '90%',
     alignSelf: 'center',
@@ -78,6 +94,8 @@ export const appStyles = StyleSheet.create({
     width: 200,
     alignSelf: 'center',
     backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   flatlistItem: {
     height: 50,

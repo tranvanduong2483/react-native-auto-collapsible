@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
-  Alert,
   Animated,
   Dimensions,
   Easing,
@@ -24,7 +23,7 @@ const TEXT_INPUT_MARGIN_TOP = 30;
 
 interface Props {}
 interface State {}
-export default class NotificationScreen extends Component<Props, State> {
+export default class Feature1_2Screen extends Component<Props, State> {
   //searchview config
   inputRef: React.RefObject<TextInput> = React.createRef();
   searchViewOpacity: Animated.Value = new Animated.Value(0);
@@ -60,6 +59,10 @@ export default class NotificationScreen extends Component<Props, State> {
           (!this.isShowSearchView && gestureState.dy <= 0) ||
           Math.abs(gestureState.dx) > 10
         ) {
+          return false;
+        }
+
+        if (gestureState.dy === 0 && gestureState.dx === 0) {
           return false;
         }
 
@@ -166,6 +169,19 @@ export default class NotificationScreen extends Component<Props, State> {
     });
   };
 
+  onPress = () => {
+    //[option] ẩn searchview
+    this.hideSearchView();
+
+    //[option]
+    this.inputRef.current?.blur();
+
+    //xử lí onPress
+    // {
+    //   ex. navigate đến các navigator.screen khác
+    // }
+  };
+
   _renderSearchView = () => (
     <Animated.View
       style={[
@@ -220,10 +236,8 @@ export default class NotificationScreen extends Component<Props, State> {
           <Text style={styles.textInSearchView}>
             View Xanh, TextInput là con của view đỏ
           </Text>
-          <TouchableHighlight
-            style={styles.button}
-            onPress={() => Alert.alert('Thông báo', 'onPress')}>
-            <Text>Button</Text>
+          <TouchableHighlight style={styles.button} onPress={this.onPress}>
+            <Text>Ẩn search view</Text>
           </TouchableHighlight>
         </Animated.View>
       </Animated.View>
@@ -234,7 +248,13 @@ export default class NotificationScreen extends Component<Props, State> {
     const contentTranslateY = this.searchViewOpacity.interpolate({
       //content dịch chuyển Y theo khi kích hoạt searchview (giống ios)
       inputRange: [0, 1],
-      outputRange: [0, 30],
+      outputRange: [0, 70],
+    });
+
+    const contentScaleX = this.searchViewOpacity.interpolate({
+      //content co lai 1->0.95 theo khi kích hoạt searchview (giống ios)
+      inputRange: [0, 1],
+      outputRange: [1, 0.95],
     });
 
     return (
@@ -262,18 +282,23 @@ export default class NotificationScreen extends Component<Props, State> {
               {
                 translateY: contentTranslateY,
               },
+              {scaleX: contentScaleX},
             ],
           }}>
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={[styles.viewItem, {backgroundColor: 'white'}]}>
+            style={[styles.scrollViewItem, {backgroundColor: 'white'}]}>
             <View
-              style={[styles.viewItemInScroll, {backgroundColor: 'yellow'}]}
-            />
+              style={[styles.viewItemInScroll, {backgroundColor: 'yellow'}]}>
+              <Text style={styles.contentText}>
+                Khi scroll vị trí 0, kéo xuống để mở search view (feature 2)
+              </Text>
+            </View>
             <View
-              style={[styles.viewItemInScroll, {backgroundColor: 'hotpink'}]}
-            />
+              style={[styles.viewItemInScroll, {backgroundColor: 'hotpink'}]}>
+              <Text style={styles.contentText}>{'Có thể\ncuộn ngang'}</Text>
+            </View>
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'blue'}]}
             />
@@ -282,12 +307,15 @@ export default class NotificationScreen extends Component<Props, State> {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={[styles.viewItem, {backgroundColor: 'white'}]}>
+            style={[styles.scrollViewItem, {backgroundColor: 'white'}]}>
+            <View
+              style={[styles.viewItemInScroll, {backgroundColor: 'orange'}]}>
+              <Text style={styles.contentText}>
+                {'Kéo lên để đóng bottom tab \n(feature 1)'}
+              </Text>
+            </View>
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'blue'}]}
-            />
-            <View
-              style={[styles.viewItemInScroll, {backgroundColor: 'orange'}]}
             />
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'green'}]}
@@ -297,7 +325,7 @@ export default class NotificationScreen extends Component<Props, State> {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={[styles.viewItem, {backgroundColor: 'white'}]}>
+            style={[styles.scrollViewItem, {backgroundColor: 'white'}]}>
             <View style={[styles.viewItemInScroll, {backgroundColor: 'red'}]} />
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'pink'}]}
@@ -309,7 +337,11 @@ export default class NotificationScreen extends Component<Props, State> {
 
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
-          <View style={[styles.viewItem, {backgroundColor: 'pink'}]} />
+          <View style={[styles.viewItem, {backgroundColor: 'pink'}]}>
+            <Text style={styles.contentText}>
+              {'Kéo xuống để mở bottom tab \n(feature 1)'}
+            </Text>
+          </View>
           <View style={[styles.viewItem, {backgroundColor: 'yellow'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'white'}]} />
           <View style={[styles.viewItem, {backgroundColor: 'red'}]} />
@@ -317,7 +349,7 @@ export default class NotificationScreen extends Component<Props, State> {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            style={[styles.viewItem, {backgroundColor: 'white'}]}>
+            style={[styles.scrollViewItem, {backgroundColor: 'white'}]}>
             <View style={[styles.viewItemInScroll, {backgroundColor: 'red'}]} />
             <View
               style={[styles.viewItemInScroll, {backgroundColor: 'black'}]}

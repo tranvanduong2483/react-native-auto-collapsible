@@ -245,17 +245,12 @@ export default class NotificationScreen extends Component<Props, State> {
           listener: event => {
             //searchview
             this.handleScroll(event);
-
-            console.log('1234');
           },
         },
       )}
       bounces={true}>
       <ScrollView
         horizontal={true}
-        // nestedScrollEnabled={true}
-        // disableScrollViewPanResponder={true}
-        // directionalLockEnabled={false}
         style={[styles.viewItem, {backgroundColor: 'green'}]}>
         <View style={[styles.viewItemInScroll, {backgroundColor: 'yellow'}]} />
         <View style={[styles.viewItemInScroll, {backgroundColor: 'orange'}]} />
@@ -264,8 +259,6 @@ export default class NotificationScreen extends Component<Props, State> {
 
       <ScrollView
         horizontal={true}
-        // nestedScrollEnabled={true}
-        // disableScrollViewPanResponder={true}
         style={[styles.viewItem, {backgroundColor: 'green'}]}>
         <View style={[styles.viewItemInScroll, {backgroundColor: 'yellow'}]} />
         <View style={[styles.viewItemInScroll, {backgroundColor: 'orange'}]} />
@@ -274,7 +267,6 @@ export default class NotificationScreen extends Component<Props, State> {
 
       <ScrollView
         horizontal={true}
-        // nestedScrollEnabled={true}
         style={[styles.viewItem, {backgroundColor: 'green'}]}>
         <View style={[styles.viewItemInScroll, {backgroundColor: 'red'}]} />
         <View style={[styles.viewItemInScroll, {backgroundColor: 'black'}]} />

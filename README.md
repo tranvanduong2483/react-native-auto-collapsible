@@ -4,6 +4,6 @@
 - Kéo xuống/ kéo lên để hiện/ẩn TabBar (createBottomTabNavigator)
 
 # Cài đặt:
-- yarn install
-- npx pod-install
-- npx react-native run-ios
+1. yarn install
+2. npx pod-install
+3. npx react-native run-ios

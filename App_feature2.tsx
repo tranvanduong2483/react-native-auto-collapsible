@@ -30,7 +30,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Notifications"
-        component={NotificationScreen}
+        component={NotificationStackScreen}
         options={{
           tabBarLabel: 'Notifications',
           tabBarIcon: ({color, size}) => (
@@ -63,6 +63,19 @@ const HomeStackScreen = () => (
   <HomeStack.Navigator>
     <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
   </HomeStack.Navigator>
+);
+
+const NotificationStack = createStackNavigator();
+const NotificationStackScreen = () => (
+  <NotificationStack.Navigator>
+    <NotificationStack.Screen
+      name="NotificationScreen"
+      component={NotificationScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+  </NotificationStack.Navigator>
 );
 
 export const App = () => {

@@ -7,7 +7,7 @@
 
 https://drive.google.com/drive/folders/1X2aj8YYdlvB21b5BjfGWIW9UvNE8O13a?usp=sharing
 
-# Cài đặt:
+# cài đặt:
 
 1. yarn install
 2. npx pod-install
